@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Filter } from "./components/Filter";
 
 function App() {
+  const filtersWithComponent = {
+    active: {
+      name: "active",
+      type: "boolean",
+      getValue: (val) => (val ? "active" : "inactive"),
+    },
+  };
+  const persons = [
+    { id: "123", name: "Mary" },
+    { id: "456", name: "Jane" },
+    { id: "789", name: "Helga" },
+  ];
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Filter filtersWithComponent={filtersWithComponent} persons={persons} />
     </div>
   );
 }
