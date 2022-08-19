@@ -45,7 +45,7 @@ const useGetFilterParams = (filtersWithComponent, Component, getLabelProps) => {
       };
       if (isComponent) {
         filterObj.Component = (
-          <FilterComponent val={val} type={type} getValue={getValue} />
+          <Component val={val} type={type} getValue={getValue} />
         );
       }
       setFilters((prev) => [...prev, filterObj]);
