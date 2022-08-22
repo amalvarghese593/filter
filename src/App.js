@@ -17,6 +17,7 @@ function App() {
   return (
     <div className="App">
       <Filter filtersWithComponent={filtersWithComponent} persons={persons} />
+      <a href="#">learn react</a>
     </div>
   );
 }

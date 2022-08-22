@@ -62,28 +62,32 @@ const useGetFilterParams = (filtersWithComponent, Component, getLabelProps) => {
   const FilterCard = () =>
     filters.map((filter, idx) => {
       const hasComponent = !!filter.Component;
-      return hasComponent ? (
-        <Fragment key={idx}>
-          {filter.Component}
-          <span
-            style={{ cursor: "pointer" }}
-            onClick={() => removeFilter(filter.name)}
-          >
-            &times;
-          </span>
-        </Fragment>
-      ) : (
-        <Fragment key={idx}>
-          <span style={{ border: "1px solid green" }}>
-            {filter.getLabel(filter.value)}
-            <span
-              style={{ cursor: "pointer" }}
-              onClick={() => removeFilter(filter.name)}
-            >
-              &times;
-            </span>
-          </span>
-        </Fragment>
+      return (
+        <div data-testid="filter">
+          {hasComponent ? (
+            <Fragment key={idx}>
+              {filter.Component}
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => removeFilter(filter.name)}
+              >
+                &times;
+              </span>
+            </Fragment>
+          ) : (
+            <Fragment key={idx}>
+              <span style={{ border: "1px solid green" }}>
+                {filter.getLabel(filter.value)}
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => removeFilter(filter.name)}
+                >
+                  &times;
+                </span>
+              </span>
+            </Fragment>
+          )}
+        </div>
       );
     });
 

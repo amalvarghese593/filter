@@ -72,7 +72,7 @@ export const Filter = ({ filtersWithComponent, persons }) => {
         <option value={"456"}>{getPerson("456")}</option>
         <option value={"789"}>{getPerson("789")}</option>
       </select>
-      <section>
+      <section data-testid="filterwrapper">
         <FilterCard />
       </section>
     </div>
