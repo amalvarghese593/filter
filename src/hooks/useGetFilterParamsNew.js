@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
-const useGetFilterParams = (filtersWithComponent, Component, getLabelProps) => {
+const useGetFilterParamsNew = (
+  filtersWithComponent,
+  Component,
+  getLabelProps
+) => {
   const [searchParams] = useSearchParams();
   const [filters, setFilters] = useState([]);
   const navigate = useNavigate();
@@ -38,28 +42,36 @@ const useGetFilterParams = (filtersWithComponent, Component, getLabelProps) => {
     // setFilters(arr);
   };
 
-  const addFilter =
-    (type, name, getLabel = (o) => o, isComponent = false, getValue) =>
-    (e) => {
-      const val = e.target.value;
-      console.log("name: ", { name, type, getLabel, isComponent, getValue });
-      const filterObj = {
-        filterType: type,
-        name,
-        value: val,
-        getLabel,
-      };
-      searchParams.set(name, val);
-      navigate({
-        search: searchParams.toString(),
-      });
-      if (isComponent) {
-        filterObj.Component = (
-          <Component val={val} type={type} getValue={getValue} />
-        );
-      }
-      // setFilters((prev) => [...prev, filterObj]);
+  const addFilter = (
+    e,
+    type,
+    name,
+    getLabel = (o) => o,
+    isComponent = false,
+    getValue,
+    passedValue
+  ) => /* (e) => */ {
+    // console.log("e.tgt.vl: ", e?.target.value);
+    console.log({ passedValue });
+    const val = e?.target.value || passedValue;
+    console.log("name: ", { name, type, getLabel, isComponent, getValue });
+    const filterObj = {
+      filterType: type,
+      name,
+      value: val,
+      getLabel,
     };
+    searchParams.set(name, val);
+    navigate({
+      search: searchParams.toString(),
+    });
+    if (isComponent) {
+      filterObj.Component = (
+        <Component val={val} type={type} getValue={getValue} />
+      );
+    }
+    // setFilters((prev) => [...prev, filterObj]);
+  };
 
   const isDisabled = useCallback(
     (name) => {
@@ -106,4 +118,4 @@ const useGetFilterParams = (filtersWithComponent, Component, getLabelProps) => {
   return { addFilter, removeFilter, isDisabled, FilterCard, filters };
 };
 
-export { useGetFilterParams };
+export { useGetFilterParamsNew };

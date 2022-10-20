@@ -10,10 +10,11 @@ function App() {
     },
   };
   const persons = [
-    { id: "123", name: "Mary" },
-    { id: "456", name: "Jane" },
-    { id: "789", name: "Helga" },
+    { id: "kjkjkj", name: "Mary" },
+    { id: "akjakjks", name: "Jane" },
+    { id: "aksajsj", name: "Helga" },
   ];
+
   return (
     <div className="App">
       <Filter filtersWithComponent={filtersWithComponent} persons={persons} />

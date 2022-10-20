@@ -3,7 +3,7 @@ import { useGetFilterParams } from "../hooks/useGetFilterParams";
 import { transformValue } from "../utils/transformValue";
 import { TagChipInputNew } from "./TagChipInputNew";
 
-export const Filter = ({ filtersWithComponent, persons }) => {
+export const FilterNew = ({ filtersWithComponent, persons }) => {
   const getPerson = (id) => persons.find((el) => el.id === id).name;
 
   const { addFilter, removeFilter, isDisabled, FilterCard, filters } =
@@ -18,6 +18,15 @@ export const Filter = ({ filtersWithComponent, persons }) => {
   const onChange = (itemArray) => {
     console.log("tags from inside: ", itemArray);
     const concatanatedFilter = itemArray.join(",");
+    addFilter(
+      undefined,
+      "string",
+      "myFruits",
+      undefined,
+      undefined,
+      undefined,
+      concatanatedFilter
+    );
   };
   const onBlur = (e) => {
     setTouched(true);
@@ -32,7 +41,7 @@ export const Filter = ({ filtersWithComponent, persons }) => {
         disabled={isDisabled("jobId")}
         name="jobId"
         id="jobId"
-        onChange={addFilter("number", "jobId")}
+        onChange={(e) => addFilter(e, "number", "jobId")}
       >
         <option value={123}>123</option>
         <option value={244}>244</option>
@@ -43,7 +52,7 @@ export const Filter = ({ filtersWithComponent, persons }) => {
         disabled={isDisabled("jobType")}
         name="jobType"
         id="jobType"
-        onChange={addFilter("string", "jobType")}
+        onChange={(e) => addFilter(e, "string", "jobType")}
       >
         <option value="contract">contract</option>
         <option value="full_time">full time</option>
@@ -54,7 +63,7 @@ export const Filter = ({ filtersWithComponent, persons }) => {
         disabled={isDisabled("name")}
         name="name"
         id="name"
-        onChange={addFilter("string", "name")}
+        onChange={(e) => addFilter(e, "string", "name")}
       >
         <option value="john">john</option>
         <option value="max">max</option>
@@ -65,9 +74,11 @@ export const Filter = ({ filtersWithComponent, persons }) => {
         disabled={isDisabled("active")}
         name="active"
         id="active"
-        onChange={addFilter("boolean", "active", undefined, true, (val) =>
-          val ? "active" : "inactive"
-        )}
+        onChange={(e) =>
+          addFilter(e, "boolean", "active", undefined, true, (val) =>
+            val ? "active" : "inactive"
+          )
+        }
       >
         <option value={true}>active</option>
         <option value={false}>inactive</option>
@@ -77,7 +88,9 @@ export const Filter = ({ filtersWithComponent, persons }) => {
         disabled={isDisabled("createdBy")}
         name="createdBy"
         id="createdBy"
-        onChange={addFilter("string", "createdBy", (id) => getPerson(id))}
+        onChange={(e) =>
+          addFilter(e, "string", "createdBy", (id) => getPerson(id))
+        }
       >
         <option value={"kjkjkj"}>{getPerson("kjkjkj")}</option>
         <option value={"akjakjks"}>{getPerson("akjakjks")}</option>
@@ -104,10 +117,8 @@ export const Filter = ({ filtersWithComponent, persons }) => {
       />
       <section data-testid="filterwrapper">
         {/* <FilterCard /> */}
-
-        {/* our own ui for cards */}
         {filters.map((filter, idx) => {
-          const hasComponent = filter.Component;
+          const hasComponent = !!filter.Component;
           return (
             <div data-testid="filter" key={idx}>
               {hasComponent ? (
